@@ -1,0 +1,17 @@
+{
+  "name": "translate-srt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "subtitles-parser": "0.0.2",
+    "translate-api": "^0.3.18"
+  }
+}
