@@ -18,39 +18,46 @@ async function ParserSrtToJson(pathFile) {
   };
 }
 
-ParserSrtToJson(testFilePath)
-  .then(async ({ arraySrtJsonConverted, currentPathFile }) => {
-    DebugLog(`[*] file converted to json`);
+async function GetStrFiles(directory) {
+  const allFiles = await fsPromises.readdir(directory);
+  console.log(allFiles);
+}
 
-    const { base } = currentPathFile;
+GetStrFiles(pathData);
 
-    /* input */
-    const textsToTranslate = [];
-    arraySrtJsonConverted.forEach((srtConverted) => {
-      let arrayEntries = Object.entries(srtConverted),
-        textEntry = arrayEntries[arrayEntries.length - 1];
-      return textsToTranslate.push({ [textEntry[0]]: textEntry[1] });
-    });
+// ParserSrtToJson(testFilePath)
+//   .then(async ({ arraySrtJsonConverted, currentPathFile }) => {
+//     DebugLog(`[*] file converted to json`);
 
-    /* process */
-    const translatedTexts = await MicrosoftTranslate(textsToTranslate);
+//     const { base } = currentPathFile;
 
-    /* output */
-    arraySrtJsonConverted.map((element, index) => {
-      let text = translatedTexts[index].translations[0].text;
-      return (element.text = text);
-    });
+//     /* input */
+//     const textsToTranslate = [];
+//     arraySrtJsonConverted.forEach((srtConverted) => {
+//       let arrayEntries = Object.entries(srtConverted),
+//         textEntry = arrayEntries[arrayEntries.length - 1];
+//       return textsToTranslate.push({ [textEntry[0]]: textEntry[1] });
+//     });
 
-    const jsonConvertedToSrt = parser.toSrt(arraySrtJsonConverted);
-    return await fsPromises
-      .writeFile(`${pathDist}/${base}`, jsonConvertedToSrt, "utf8")
-      .then(() => {
-        DebugLog(`[+] subtitles successfully translated [+]`);
-      })
-      .catch((error) => {
-        DebugLog(`[-] error converting subtitle`, error);
-      });
-  })
-  .catch((error) => {
-    DebugLog(`[-] error parse srt to json:`, error);
-  });
+//     /* process */
+//     const translatedTexts = await MicrosoftTranslate(textsToTranslate);
+
+//     /* output */
+//     arraySrtJsonConverted.map((element, index) => {
+//       let text = translatedTexts[index].translations[0].text;
+//       return (element.text = text);
+//     });
+
+//     const jsonConvertedToSrt = parser.toSrt(arraySrtJsonConverted);
+//     return await fsPromises
+//       .writeFile(`${pathDist}/${base}`, jsonConvertedToSrt, "utf8")
+//       .then(() => {
+//         DebugLog(`[+] subtitles successfully translated [+]`);
+//       })
+//       .catch((error) => {
+//         DebugLog(`[-] error converting subtitle`, error);
+//       });
+//   })
+//   .catch((error) => {
+//     DebugLog(`[-] error parse srt to json:`, error);
+//   });
