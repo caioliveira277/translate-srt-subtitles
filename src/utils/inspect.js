@@ -1,8 +1,14 @@
+const { debuglog } = require("util");
+
 const inspect = require("util").inspect;
 
-module.exports = function DebugLog(debugTitle = "", obj = {}) {
-  return console.log(
-    debugTitle,
-    inspect(obj, { showHidden: false, depth: null, colors: true })
-  );
+module.exports = function DebugLog(debugTitle = "", obj = null) {
+  let logParms = obj
+    ? [
+        debugTitle,
+        inspect(obj, { showHidden: false, depth: null, colors: true }),
+      ]
+    : [debugTitle];
+
+  return console.log(logParms.join(","));
 };
