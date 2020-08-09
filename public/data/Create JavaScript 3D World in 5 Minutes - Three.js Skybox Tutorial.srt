@@ -1,0 +1,133 @@
+1
+00:00:14,889 --> 00:00:19,640
+hello and welcome to red stapler Channel
+in this tutorial I'm going to show you
+
+2
+00:00:19,640 --> 00:00:24,140
+how to create an easy 3d world with
+skybox technique and three.js in just
+
+3
+00:00:24,140 --> 00:00:28,750
+a few minutes ready let's check it out
+
+4
+00:00:32,680 --> 00:00:38,420
+the concept of skybox is really simple
+create a cube to contain your 3d world
+
+5
+00:00:38,420 --> 00:00:42,860
+and then assign the right texture to
+each side of the cube there are lots of
+
+6
+00:00:42,860 --> 00:00:47,510
+available skybox images online both
+free and paid version for this tutorial
+
+7
+00:00:47,510 --> 00:00:52,940
+I'm going to download one from opengameart.org and then move all images to
+
+8
+00:00:52,940 --> 00:01:00,440
+the web directory next let's start with
+the basic setup for three.js as usual
+
+9
+00:01:00,440 --> 00:01:05,479
+first include the latest version of the
+library then I'm going to create a scene
+
+10
+00:01:05,479 --> 00:01:10,060
+set up a camera and renderer
+
+11
+00:01:22,700 --> 00:01:30,070
+I will used current viewport as renderer size and added to the page as canvas element
+
+12
+00:01:39,590 --> 00:01:44,040
+next I will set up an orbitControl.js to enable mouse control of the camera
+
+13
+00:01:55,020 --> 00:02:01,360
+and here is the key part I'm going to
+create an array to store materials for
+
+14
+00:02:01,360 --> 00:02:07,410
+each side of the cube then use texture
+loader to load the image
+
+15
+00:02:26,740 --> 00:02:31,930
+and once loaded we'll push each material
+to the array we'll use meshBasicMaterial
+
+16
+00:02:31,930 --> 00:02:36,850
+for the skybox this material is
+not affected by light so we don't have
+
+17
+00:02:36,850 --> 00:02:47,320
+to set up any light and still be able to
+see it then we will create a box
+
+18
+00:02:47,320 --> 00:02:57,090
+geometry and put it together with the
+material array to create a queue and
+
+19
+00:02:57,090 --> 00:03:00,600
+added to the scene
+
+20
+00:03:02,200 --> 00:03:11,240
+finally we will create a recursive
+function loop to render a scene
+
+21
+00:03:17,420 --> 00:03:22,459
+now if you check the result you won't be
+able to see anything but if you zoom out
+
+22
+00:03:22,459 --> 00:03:28,250
+you know why it because we assign the
+texture to the outside of the cube we can
+
+23
+00:03:28,250 --> 00:03:36,889
+fix this by setting the side property of
+the material to three.backside
+
+24
+00:03:43,910 --> 00:03:49,320
+looks good but there's still a problem
+if we zoom out too much it will break
+
+25
+00:03:49,320 --> 00:03:57,569
+the skybox so we will have to limit the
+zoom distance like so
+
+26
+00:04:06,000 --> 00:04:11,379
+and that's it hope you guys enjoyed this
+short tutorial and if you love this
+
+27
+00:04:11,379 --> 00:04:14,980
+video don't forget to like or subscribe
+to stay with us for more thanks for
+
+28
+00:04:14,980 --> 00:04:18,989
+watching and see you next time bye
+
