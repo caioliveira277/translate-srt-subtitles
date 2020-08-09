@@ -1,0 +1,25 @@
+@import "./variables.scss";
+
+aside {
+  box-shadow: 0 5px 10px #00000025;
+  min-height: 100vh;
+  max-height: 100vh;
+  padding: 10px;
+  ul {
+    li {
+      background: #222222;
+      border-bottom: 1px solid $secondaryColor;
+      color: $whiteColor;
+      padding: 20px 70px;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+      margin: 10px 0;
+      box-shadow: 0 5px 10px #00000045;
+      &:hover {
+        box-shadow: 5px 10px 10px #00000045;
+        transform: scale(1.05);
+        transform-origin: right;
+      }
+    }
+  }
+}
