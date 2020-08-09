@@ -1,5 +1,5 @@
 const Axios = require("axios").default;
-const DebugLog = require("./utils/inspect");
+const DebugLog = require("../utils/inspect");
 
 const Request = Axios.create({
   baseURL: "https://microsoft-translator-text.p.rapidapi.com/",

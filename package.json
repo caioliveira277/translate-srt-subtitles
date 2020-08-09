@@ -2,10 +2,11 @@
   "name": "translate-srt",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/index.js",
   "private": true,
   "scripts": {
-    "start": "node ./src/index.js"
+    "build": "webpack --watch",
+    "electron": "electron ."
   },
   "keywords": [],
   "author": "",
@@ -13,7 +14,18 @@
   "dependencies": {
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
-    "subtitles-parser": "0.0.2",
-    "unirest": "^0.6.0"
+    "electron-reload": "^1.5.0",
+    "subtitles-parser": "0.0.2"
+  },
+  "devDependencies": {
+    "electron": "^9.2.0",
+    "css-loader": "^4.2.0",
+    "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "sass": "^1.26.10",
+    "sass-loader": "^9.0.2",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }
