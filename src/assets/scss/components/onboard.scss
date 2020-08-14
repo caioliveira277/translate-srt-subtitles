@@ -1,0 +1,29 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+.onboard {
+  &-info {
+    color: $white;
+    margin-top: 40px;
+    h1 {
+      font-weight: 600;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 18px;
+      line-height: 25px;
+    }
+  }
+  &-action {
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    p {
+      color: $white;
+      font-size: 18px;
+    }
+    button {
+      margin-top: 30px;
+    }
+  }
+}

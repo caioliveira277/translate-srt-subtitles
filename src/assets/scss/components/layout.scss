@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;400;700&display=swap");
+@import "./mixins.scss";
+@import "./variables.scss";
 * {
   outline: 0;
   border: 0;
@@ -8,9 +11,24 @@ ul {
   padding: 0;
 }
 body {
-  background: #efefef;
+  background: $black;
+  font-family: "Raleway", sans-serif;
 }
-.container {
+#app {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 100%;
+  padding-top: 40px;
+}
+
+.btn-theme {
+  @include btn-theme;
+}
+.text-underline {
+  position: relative;
+  &::after {
+    @include text-underline;
+  }
 }

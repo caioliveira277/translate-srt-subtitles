@@ -1,10 +1,11 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const path = require("path");
 
 module.exports = {
   mode: "development",
-  entry: "./src/imports.js",
+  entry: "./src/index.js",
   devServer: {
     contentBase: "./public",
   },
@@ -16,6 +17,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "dist/css/styles.css",
     }),
+    new VueLoaderPlugin(),
   ],
   module: {
     rules: [
@@ -38,6 +40,10 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.vue$/,
+        use: "vue-loader",
       },
     ],
   },

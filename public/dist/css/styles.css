@@ -1,3 +1,10 @@
+@import url(https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;400;700&display=swap);
+@keyframes full-progress {
+  from {
+    width: 0;
+  }
+  to-width: 100%;
+}
 * {
   outline: 0;
   border: 0;
@@ -10,32 +17,84 @@ ul {
 }
 
 body {
-  background: #efefef;
+  background: #2e2e2e;
+  font-family: "Raleway", sans-serif;
 }
 
-.container {
+#app {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 100%;
+  padding-top: 40px;
 }
 
-aside {
+.btn-theme {
+  border: none;
+  padding: 10px 20px;
   box-shadow: 0 5px 10px #00000025;
-  min-height: 100vh;
-  max-height: 100vh;
-  padding: 10px;
-}
-aside ul li {
-  background: #222222;
-  border-bottom: 1px solid #ff918a;
+  background: #876bf7;
+  border-radius: 30px;
   color: #fafafa;
-  padding: 20px 70px;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-  margin: 10px 0;
-  box-shadow: 0 5px 10px #00000045;
+  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+  translate: all 300ms;
 }
-aside ul li:hover {
-  box-shadow: 5px 10px 10px #00000045;
-  transform: scale(1.05);
-  transform-origin: right;
+.btn-theme:hover {
+  background: #6844f5;
 }
+.btn-theme:active {
+  transform: scale(0.98);
+}
+
+.text-underline {
+  position: relative;
+}
+.text-underline::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background: #876bf7;
+  animation: full-progress 0.6s 0.3s ease-in;
+}
+
+@keyframes full-progress {
+  from {
+    width: 0;
+  }
+  to-width: 100%;
+}
+.onboard-info {
+  color: #fafafa;
+  margin-top: 40px;
+}
+.onboard-info h1 {
+  font-weight: 600;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+.onboard-info p {
+  font-size: 18px;
+  line-height: 25px;
+}
+.onboard-action {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+}
+.onboard-action p {
+  color: #fafafa;
+  font-size: 18px;
+}
+.onboard-action button {
+  margin-top: 30px;
+}
+
+/* Layout */
+/* Pages */
