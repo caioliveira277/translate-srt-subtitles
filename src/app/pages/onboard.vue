@@ -4,11 +4,11 @@
       <img :src="logo" alt="Logo passaro roxo" />
     </figure>
     <div class="onboard-info">
-      <h1>Olá,</h1>
+      <h1>Olá.</h1>
       <p>
         Bem-vindo ao
         <b class="text-underline">BirdTranslate</b>,
-        <br />um simples utilitário tradutor de legendas.
+        <br />o sistema ideal para tradução de legendas.
       </p>
     </div>
     <div class="onboard-action">

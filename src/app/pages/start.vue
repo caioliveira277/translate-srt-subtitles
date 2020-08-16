@@ -40,8 +40,9 @@
       <div class="group">
         <label for="input-dir">Diretório de entrada:</label>
         <div class="input-icon">
-          <input type="text" placeholder="C://dir/subtitles" name="input-dir" id="input-dir" />
-          <span class="icon">
+          <input type="file" ref="input-dir" directory class="hidden" />
+          <input type="text" readonly placeholder="C://dir/subtitles" id="input-dir" />
+          <span class="icon" @click="HandlerInputFile('input-dir')">
             <i>
               <svg
                 width="1em"
@@ -70,13 +71,9 @@
       <div class="group">
         <label for="output-dir">Diretório de saída:</label>
         <div class="input-icon">
-          <input
-            type="text"
-            placeholder="C://dir/subtitles/translated"
-            name="output-dir"
-            id="output-dir"
-          />
-          <span class="icon">
+          <input type="file" ref="output-dir" directory class="hidden" />
+          <input type="text" placeholder="C://dir/subtitles/translated" id="output-dir" />
+          <span class="icon" @click="HandlerInputFile('output-dir')">
             <i>
               <svg
                 width="1em"
@@ -115,6 +112,13 @@ export default {
     return {
       logo: image,
     };
+  },
+  methods: {
+    HandlerInputFile(inputTarget) {
+      const element = this.$refs[inputTarget];
+      console.log(element);
+      element.dispatchEvent(new Event("click"));
+    },
   },
 };
 </script>

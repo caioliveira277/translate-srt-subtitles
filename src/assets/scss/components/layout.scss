@@ -33,7 +33,9 @@ body {
   width: 100%;
   padding: 40px 10px;
 }
-
+svg {
+  pointer-events: none;
+}
 .btn-theme {
   @include btn-theme;
 }
