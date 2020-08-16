@@ -4,6 +4,7 @@
   &-info {
     color: $white;
     margin-top: 40px;
+    text-align: center;
     h1 {
       font-weight: 600;
       font-size: 32px;
@@ -22,7 +23,7 @@
       color: $white;
       font-size: 18px;
     }
-    button {
+    a {
       margin-top: 30px;
     }
   }

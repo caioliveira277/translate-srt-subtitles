@@ -7,12 +7,23 @@
   margin: 0;
   box-sizing: border-box;
 }
+::-webkit-scrollbar {
+  width: 5px;
+  background: transparent;
+  border-radius: 30px;
+}
+::-webkit-scrollbar-thumb {
+  background: $purple;
+  border-radius: 30px;
+}
 ul {
   padding: 0;
 }
 body {
   background: $black;
   font-family: "Raleway", sans-serif;
+  display: flex;
+  height: 100vh;
 }
 #app {
   display: flex;
@@ -20,7 +31,7 @@ body {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  padding-top: 40px;
+  padding: 40px 10px;
 }
 
 .btn-theme {

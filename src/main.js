@@ -10,7 +10,7 @@ let mainWindow;
 app.on("ready", () => {
   mainWindow = new BrowserWindow({
     width: 600,
-    height: 600,
+    height: 785,
   });
 
   mainWindow.loadURL(`file://${indexPath}`);
