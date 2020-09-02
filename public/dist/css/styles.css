@@ -205,6 +205,21 @@ svg {
 .start-form .group .input-icon .icon:active {
   transform: scale(1);
 }
+.start-form .group .input-icon .icon.key svg {
+  pointer-events: none;
+}
+.start-form .group .input-icon .icon.key .hide {
+  display: block;
+}
+.start-form .group .input-icon .icon.key .show {
+  display: none;
+}
+.start-form .group .input-icon .icon.key.active .hide {
+  display: none;
+}
+.start-form .group .input-icon .icon.key.active .show {
+  display: block;
+}
 .start-action {
   margin-top: 20px;
 }

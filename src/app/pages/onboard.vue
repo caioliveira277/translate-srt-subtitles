@@ -13,17 +13,23 @@
     </div>
     <div class="onboard-action">
       <p>Podemos começar?</p>
-      <a href="?view=start" class="btn-theme">Início</a>
+      <a href="#" @click.prevent="goto('start')" class="btn-theme">Início</a>
     </div>
   </section>
 </template>
 <script>
 import image from "../../assets/images/logo.svg";
+import APP from "../index";
 export default {
   data() {
     return {
       logo: image,
     };
+  },
+  methods: {
+    goto(view) {
+      APP.goToView(view);
+    },
   },
 };
 </script>

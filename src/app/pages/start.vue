@@ -6,10 +6,14 @@
     <div class="start-info">
       <h1 class="text-underline">Como funciona:</h1>
       <p>
-        Preencha o campo “Chave da API”, informando a sua chave de acesso a API de tradução da
+        Preencha o campo “Chave da API”, informando a sua chave de acesso a API
+        de tradução da
         <b>Microsoft</b>.
       </p>
-      <p>Adicione o diretório de entrada contendo os arquivos “.srt”, e o diretório de saída onde os arquivos traduzidos seráo salvos.</p>
+      <p>
+        Adicione o diretório de entrada contendo os arquivos “.srt”, e o
+        diretório de saída onde os arquivos traduzidos seráo salvos.
+      </p>
     </div>
     <form class="start-form">
       <div class="group">
@@ -18,9 +22,16 @@
           <span class="info">?</span>
         </label>
         <div class="input-icon">
-          <input type="password" placeholder="6bdbdde80fdmsh7jsn1f82..." name="key" id="key" />
-          <span class="icon">
-            <i>
+          <input
+            type="password"
+            v-model="keyAPI"
+            placeholder="6bdbdde80fdmsh7jsn1f82..."
+            name="key"
+            id="key"
+            ref="inputKey"
+          />
+          <span class="icon key" ref="visibility" @mouseup="showKeyInput" @mousedown="showKeyInput">
+            <i class="hide">
               <svg
                 width="1em"
                 height="1em"
@@ -34,15 +45,32 @@
                 />
               </svg>
             </i>
+            <i class="show">
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 17 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8.42201 9.81575C9.00113 9.81575 9.55655 9.58569 9.96605 9.17618C10.3756 8.76668 10.6056 8.21127 10.6056 7.63214C10.6056 7.56819 10.6027 7.50482 10.5972 7.44224L8.23211 9.80736C8.29469 9.81282 8.35786 9.81575 8.42201 9.81575ZM15.6498 0.877759L14.8169 0.0456469C14.7876 0.0164186 14.748 0 14.7066 0C14.6653 0 14.6256 0.0164186 14.5964 0.0456469L12.465 2.17759C11.2892 1.57671 9.96756 1.27627 8.49999 1.27627C4.75276 1.27627 1.95696 3.22787 0.112583 7.13107C0.0384484 7.28805 0 7.45951 0 7.63311C0 7.80672 0.0384484 7.97817 0.112583 8.13515C0.849552 9.68746 1.73697 10.9317 2.77483 11.8678L0.712297 13.9295C0.683068 13.9588 0.666649 13.9984 0.666649 14.0398C0.666649 14.0811 0.683068 14.1208 0.712297 14.15L1.5446 14.9823C1.57385 15.0116 1.61351 15.028 1.65486 15.028C1.69621 15.028 1.73586 15.0116 1.76511 14.9823L15.6498 1.09846C15.6643 1.08397 15.6758 1.06677 15.6836 1.04784C15.6915 1.0289 15.6955 1.00861 15.6955 0.988109C15.6955 0.967612 15.6915 0.947316 15.6836 0.928381C15.6758 0.909446 15.6643 0.892244 15.6498 0.877759ZM4.99062 7.63214C4.99056 7.03945 5.14402 6.45686 5.43605 5.94111C5.72807 5.42537 6.14871 4.99405 6.65697 4.68919C7.16523 4.38433 7.7438 4.21631 8.33629 4.20151C8.92879 4.1867 9.51502 4.32562 10.0379 4.60471L9.08996 5.55264C8.70767 5.43023 8.29905 5.41549 7.90893 5.51003C7.51882 5.60457 7.16228 5.80474 6.87845 6.08858C6.59461 6.37241 6.39444 6.72895 6.2999 7.11907C6.20536 7.50918 6.2201 7.9178 6.3425 8.30009L5.39458 9.24801C5.12857 8.751 4.98979 8.19585 4.99062 7.63214V7.63214Z"
+                  fill="white"
+                />
+                <path
+                  d="M16.8874 7.12913C16.2011 5.68378 15.3843 4.50522 14.4369 3.59343L11.6266 6.40386C11.8635 7.02309 11.916 7.69768 11.7778 8.34611C11.6396 8.99455 11.3166 9.58909 10.8477 10.0579C10.3789 10.5267 9.7844 10.8497 9.13596 10.988C8.48753 11.1262 7.81294 11.0737 7.1937 10.8368L4.81006 13.2204C5.9159 13.7321 7.14587 13.988 8.49997 13.988C12.2472 13.988 15.043 12.0364 16.8874 8.1332C16.9615 7.97622 17 7.80477 17 7.63116C17 7.45755 16.9615 7.2861 16.8874 7.12913V7.12913Z"
+                  fill="white"
+                />
+              </svg>
+            </i>
           </span>
         </div>
       </div>
       <div class="group">
-        <label for="input-dir">Diretório de entrada:</label>
+        <label for="inputDir">Diretório de entrada:</label>
         <div class="input-icon">
-          <input type="file" ref="input-dir" directory class="hidden" />
-          <input type="text" readonly placeholder="C://dir/subtitles" id="input-dir" />
-          <span class="icon" @click="HandlerInputFile('input-dir')">
+          <input type="text" readonly v-model="inputDir" placeholder="C://dir/subtitles" />
+          <span class="icon" @click="HandlerInputFile('inputDir')">
             <i>
               <svg
                 width="1em"
@@ -69,11 +97,15 @@
         </div>
       </div>
       <div class="group">
-        <label for="output-dir">Diretório de saída:</label>
+        <label for="outputDir">Diretório de saída:</label>
         <div class="input-icon">
-          <input type="file" ref="output-dir" directory class="hidden" />
-          <input type="text" placeholder="C://dir/subtitles/translated" id="output-dir" />
-          <span class="icon" @click="HandlerInputFile('output-dir')">
+          <input
+            type="text"
+            readonly
+            v-model="outputDir"
+            placeholder="C://dir/subtitles/translated"
+          />
+          <span class="icon" @click="HandlerInputFile('outputDir')">
             <i>
               <svg
                 width="1em"
@@ -107,7 +139,9 @@
 </template>
 <script>
 import image from "../../assets/images/logo.svg";
+import APP from "../index";
 export default {
+  name: "Start",
   data() {
     return {
       logo: image,
@@ -115,9 +149,36 @@ export default {
   },
   methods: {
     HandlerInputFile(inputTarget) {
-      const element = this.$refs[inputTarget];
-      console.log(element);
-      element.dispatchEvent(new Event("click"));
+      window.postMessage({
+        type: "selectDirectory",
+        target: inputTarget,
+      });
+    },
+    showKeyInput({ type }) {
+      this.$refs.visibility.classList.toggle("active");
+      if (type === "mousedown") {
+        this.$refs.inputKey.setAttribute("type", "text");
+      } else {
+        this.$refs.inputKey.setAttribute("type", "password");
+      }
+    },
+  },
+  computed: {
+    inputDir: function () {
+      return APP.$data.inputDir;
+    },
+    outputDir: function () {
+      return APP.$data.outputDir;
+    },
+    keyAPI: {
+      get: function () {
+        return APP.$data.keyAPI;
+      },
+      set: function (newValue) {
+        APP.$data.keyAPI = newValue;
+        localStorage.setItem("keyAPI", newValue);
+        return newValue;
+      },
     },
   },
 };

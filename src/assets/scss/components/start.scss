@@ -81,6 +81,25 @@
             transform: scale(1);
           }
         }
+        .icon.key {
+          svg {
+            pointer-events: none;
+          }
+          .hide {
+            display: block;
+          }
+          .show {
+            display: none;
+          }
+        }
+        .icon.key.active {
+          .hide {
+            display: none;
+          }
+          .show {
+            display: block;
+          }
+        }
       }
     }
   }
