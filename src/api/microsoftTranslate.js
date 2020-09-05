@@ -1,18 +1,18 @@
 const Axios = require("axios").default;
 
 async function MicrosoftTranslate(textsToTranslate = [{ text: "" }], key) {
-  const Request = Axios.create({
-    baseURL: "https://microsoft-translator-text.p.rapidapi.com/",
-    headers: {
-      "x-rapidapi-host": "microsoft-translator-text.p.rapidapi.com",
-      "x-rapidapi-key": key,
-      "content-type": "application/json",
-      accept: "application/json",
-      useQueryString: true,
-    },
-    responseType: "json",
-  });
   try {
+    const Request = Axios.create({
+      baseURL: "https://microsoft-translator-text.p.rapidapi.com/",
+      headers: {
+        "x-rapidapi-host": "microsoft-translator-text.p.rapidapi.com",
+        "x-rapidapi-key": key,
+        "content-type": "application/json",
+        accept: "application/json",
+        useQueryString: true,
+      },
+      responseType: "json",
+    });
     return await Request.post("translate", textsToTranslate, {
       params: {
         profanityAction: "NoAction",
