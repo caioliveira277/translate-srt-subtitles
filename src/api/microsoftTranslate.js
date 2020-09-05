@@ -1,19 +1,17 @@
 const Axios = require("axios").default;
-const DebugLog = require("../utils/inspect");
 
-const Request = Axios.create({
-  baseURL: "https://microsoft-translator-text.p.rapidapi.com/",
-  headers: {
-    "x-rapidapi-host": "microsoft-translator-text.p.rapidapi.com",
-    "x-rapidapi-key": process.env.TRANSLATE_MICROSOFT_KEY,
-    "content-type": "application/json",
-    accept: "application/json",
-    useQueryString: true,
-  },
-  responseType: "json",
-});
-
-async function MicrosoftTranslate(textsToTranslate = [{ text: "" }]) {
+async function MicrosoftTranslate(textsToTranslate = [{ text: "" }], key) {
+  const Request = Axios.create({
+    baseURL: "https://microsoft-translator-text.p.rapidapi.com/",
+    headers: {
+      "x-rapidapi-host": "microsoft-translator-text.p.rapidapi.com",
+      "x-rapidapi-key": key,
+      "content-type": "application/json",
+      accept: "application/json",
+      useQueryString: true,
+    },
+    responseType: "json",
+  });
   try {
     return await Request.post("translate", textsToTranslate, {
       params: {
@@ -30,7 +28,7 @@ async function MicrosoftTranslate(textsToTranslate = [{ text: "" }]) {
         throw new Error(error);
       });
   } catch (error) {
-    return DebugLog(`[-] translate error:`, error.message);
+    throw new Error(error.message);
   }
 }
 
