@@ -1,10 +1,21 @@
-const { ipcRenderer } = require("electron");
+const { ipcRenderer, ipcMain } = require("electron");
+const translate = require("../bin/core");
 
 process.once("loaded", () => {
   window.addEventListener("message", ({ data }) => {
-    if (data.type === "selectDirectory")
-      return ipcRenderer.send("selectDirectory", { target: data.target });
+    switch (data.type) {
+      case "selectDirectory":
+        ipcRenderer.send("selectDirectory", { target: data.target });
+        break;
+      case "translate":
+        const { inputDir, outputDir, keyAPI } = window.APP;
+        translate(inputDir, outputDir, keyAPI);
+        break;
+      default:
+        break;
+    }
   });
+
   ipcRenderer.on("selectedDirectory", (_event, { target, directory }) => {
     window.APP.$data[target] = directory;
   });

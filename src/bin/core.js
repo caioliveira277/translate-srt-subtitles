@@ -1,13 +1,21 @@
-require("dotenv").config();
 const fsPromises = require("fs").promises;
 const path = require("path");
 const parser = require("subtitles-parser");
 const DebugLog = require("../utils/inspect");
 const { MicrosoftTranslate } = require("../api/microsoftTranslate");
+let logKey = 0;
 
-const pathData = path.resolve(__dirname, "..", "..", "public", "data");
-const pathDist = path.resolve(__dirname, "..", "..", "public", "dist");
-
+function SendLog(logType, fileName, message) {
+  return window.postMessage({
+    type: "response",
+    log: {
+      key: logKey++,
+      logType,
+      fileName,
+      message,
+    },
+  });
+}
 async function GetStrFiles(directory) {
   const allFiles = await fsPromises.readdir(directory);
   const allowedExtension = ".srt";
@@ -33,9 +41,11 @@ async function ParserSrtToJson(pathFile) {
     currentPathFile: path.parse(pathFile),
   };
 }
+module.exports = async function translate(inputDir, outputDir, keyAPI) {
+  try {
+    const pathData = inputDir;
+    const pathDist = outputDir;
 
-try {
-  (async function () {
     let entryStrFiles = [];
 
     await GetStrFiles(pathData).then((result) => {
@@ -44,24 +54,26 @@ try {
 
     if (!entryStrFiles.length) throw new Error("Data directory is empty");
 
-    entryStrFiles.forEach(async (strFile) => {
+    for (const strFile of entryStrFiles) {
       DebugLog(`[*] translating the file: "${path.parse(strFile).base}"`);
+      SendLog("info", path.parse(strFile).base, "em processo de tradução...");
+
       await ParserSrtToJson(strFile)
         .then(async ({ arraySrtJsonConverted, currentPathFile }) => {
           DebugLog(`[*] file converted to json`);
-
           const { base } = currentPathFile;
-
           /* input */
           const textsToTranslate = [];
-          arraySrtJsonConverted.forEach((srtConverted) => {
-            let arrayEntries = Object.entries(srtConverted),
-              textEntry = arrayEntries[arrayEntries.length - 1];
-            return textsToTranslate.push({ [textEntry[0]]: textEntry[1] });
-          });
-
+          for (const srtConverted of arraySrtJsonConverted) {
+            let arrayEntries = Object.entries(srtConverted);
+            textEntry = arrayEntries[arrayEntries.length - 1];
+            textsToTranslate.push({ [textEntry[0]]: textEntry[1] });
+          }
           /* process */
-          const translatedTexts = await MicrosoftTranslate(textsToTranslate);
+          const translatedTexts = await MicrosoftTranslate(
+            textsToTranslate,
+            keyAPI
+          );
 
           /* output */
           arraySrtJsonConverted.map((element, index) => {
@@ -76,16 +88,18 @@ try {
               DebugLog(
                 `[+] subtitles successfully translated: saved in ${pathDist}`
               );
+              SendLog("success", base, "traduzido com sucesso!");
             })
             .catch(() => {
-              throw new Error("converting subtitle");
+              SendLog("error", base, "falha ao converter arquivo");
             });
         })
-        .catch(() => {
-          throw new Error("parse srt to json");
+        .catch((error) => {
+          throw new Error(error.message);
         });
-    });
-  })();
-} catch (error) {
-  DebugLog("[-] error: ", error.message);
-}
+    }
+  } catch (error) {
+    SendLog("error", "error", error.message);
+    return DebugLog("[-] error: ", error.message);
+  }
+};
