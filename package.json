@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "build": "webpack --watch",
-    "electron": "electron ."
+    "electron": "electron .",
+    "server": "node ./src/api/socket.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "electron-reload": "^1.5.0",
+    "express": "^4.15.2",
     "subtitles-parser": "0.0.2",
     "vue": "^2.6.11"
   },
