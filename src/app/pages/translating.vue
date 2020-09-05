@@ -6,10 +6,10 @@
         background="transparent"
         speed="1"
         style="width: 300px; height: 300px;"
-        loop
+        :loop="isRuning"
         autoplay
       ></lottie-player>
-      <p>Buscando traduções...</p>
+      <p>{{ loading }}</p>
     </figure>
     <ul class="translating-logs">
       <li v-for="log in logs" :key="log.key">
@@ -67,13 +67,26 @@ export default {
   data() {
     return {
       logs: [],
+      loading: "Buscando traduções...",
+      isRuning: true,
     };
   },
   mounted() {
+    const self = this;
     window.postMessage({ type: "translate" });
     window.addEventListener("message", ({ data }) => {
       if (data.type === "response") {
         window.scrollTo(0, window.outerHeight);
+        if (data.log.logType === "success") {
+          self.loading = "Traduções encontradas";
+          self.isRuning = false;
+        } else if (data.log.logType === "info") {
+          self.loading = "Buscando traduções...";
+          self.isRuning = true;
+        } else {
+          self.isRuning = false;
+          self.loading = "Falha ao traduzir.";
+        }
         return this.logs.push(data.log);
       }
     });

@@ -77,7 +77,7 @@ module.exports = async function translate(inputDir, outputDir, keyAPI) {
 
           /* output */
           arraySrtJsonConverted.map((element, index) => {
-            let text = translatedTexts[index].translations[0].text;
+            let text = translatedTexts.data[index].translations[0].text;
             return (element.text = text);
           });
 
@@ -100,6 +100,6 @@ module.exports = async function translate(inputDir, outputDir, keyAPI) {
     }
   } catch (error) {
     SendLog("error", "error", error.message);
-    return DebugLog("[-] error: ", error.message);
+    return DebugLog("[-] error: ", error);
   }
 };
