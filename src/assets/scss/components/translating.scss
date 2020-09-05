@@ -1,5 +1,6 @@
 @import "./variables.scss";
 @import "./mixins.scss";
+
 .translating {
   figure {
     p {
@@ -14,9 +15,6 @@
   &-logs {
     margin-bottom: 20px;
     list-style: none;
-    max-height: 350px;
-    min-height: 350px;
-    overflow-y: auto;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 5px 15px #00000030;

@@ -7,6 +7,9 @@
   margin: 0;
   box-sizing: border-box;
 }
+html {
+  scroll-behavior: smooth;
+}
 ::-webkit-scrollbar {
   width: 5px;
   background: transparent;
@@ -23,7 +26,7 @@ body {
   background: $black;
   font-family: "Raleway", sans-serif;
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
 #app {
   display: flex;

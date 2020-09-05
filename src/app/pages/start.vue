@@ -133,7 +133,7 @@
       </div>
     </form>
     <div class="start-action">
-      <a href="?view=translating" class="btn-theme">Traduzir</a>
+      <a href="#" @click.prevent="goto('translating')" class="btn-theme">Traduzir</a>
     </div>
   </section>
 </template>
@@ -161,6 +161,13 @@ export default {
       } else {
         this.$refs.inputKey.setAttribute("type", "password");
       }
+    },
+    goto(view) {
+      const { inputDir, outputDir, keyAPI } = window.APP.$data;
+      if (!inputDir || !outputDir || !keyAPI) {
+        return;
+      }
+      APP.goToView(view);
     },
   },
   computed: {
