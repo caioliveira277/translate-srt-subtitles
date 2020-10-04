@@ -42,7 +42,7 @@ module.exports = {
       .writeFile(finalPath, jsonConvertedToSrt, "utf8")
       .then(() => {
         return {
-          message: `[+] subtitles successfully translated: saved in ${outputPath}`,
+          message: `✔ subtitles successfully translated: saved in ${outputPath}`,
           response: true
         }
       })
