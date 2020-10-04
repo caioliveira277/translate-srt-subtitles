@@ -2,7 +2,6 @@ const path = require("path");
 
 const inputPath = path.resolve("");
 const outputPath = path.resolve("", "translated");
-console.log(outputPath)
 const {core} = require("./core");
 
 (async () => {
