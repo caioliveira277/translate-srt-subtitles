@@ -1,5 +1,7 @@
-const { MicrosoftTranslate } = require("./api/microsoftTranslate");
-const { GetStrFiles, ParserSrtToJson } = require("./controllers/srtFileControllers");
+const { MicrosoftTranslate } = require("../api/microsoftTranslate");
+const { GetStrFiles, ParserSrtToJson, ParserJsonToSrt } = require("../controllers/srtFileControllers");
+const path = require("path");
+const DebugLog = require("../utils/inspect");
 
 module.exports = {
   core: async (inputPath, outputPath) => {
@@ -12,8 +14,6 @@ module.exports = {
         await ParserSrtToJson(strFile)
           .then(async ({ arraySrtJsonConverted, currentPathFile }) => {
             DebugLog(`[*] file converted to json`);
-    
-            const { base } = currentPathFile;
     
             /* input */
             const textsToTranslate = [];
@@ -32,24 +32,21 @@ module.exports = {
               return (element.text = text);
             });
     
-            const jsonConvertedToSrt = parser.toSrt(arraySrtJsonConverted);
-            return await fsPromises
-              .writeFile(`${outputPath}/${base}`, jsonConvertedToSrt, "utf8")
-              .then(() => {
-                DebugLog(
-                  `[+] subtitles successfully translated: saved in ${outputPath}`
-                );
-              })
-              .catch(() => {
-                throw new Error("converting subtitle");
-              });
+            const parserToSrt = await ParserJsonToSrt(arraySrtJsonConverted, outputPath, currentPathFile);
+            if(parserToSrt.response){
+              DebugLog(parserToSrt.message);
+            }else {
+              throw new Error(parserToSrt.message)
+            }
           })
-          .catch(({message}) => {
-            throw new Error("parse srt to json", message);
+          .catch((error) => {
+            throw new Error(`[-] parse srt to json: ${error}`);
           });
-        }
-    } catch ({message}) {
-      return message;
+      }
+      return true
+    } catch (error) {
+      DebugLog(error);
+      return false
     }
   }
 }

@@ -14,26 +14,26 @@ const Request = Axios.create({
   responseType: "json",
 });
 
-async function MicrosoftTranslate(textsToTranslate = [{ text: "" }]) {
-  try {
-    if(!textsToTranslate.length) return textsToTranslate;
-    return await Request.post("translate", textsToTranslate, {
-      params: {
-        profanityAction: "NoAction",
-        textType: "plain",
-        "api-version": "3.0",
-        to: "pt",
-      },
-    })
-      .then(({ data }) => {
-        return data;
+module.exports = {
+  MicrosoftTranslate: async (textsToTranslate = [{ text: "" }]) => {
+    try {
+      if(!textsToTranslate.length) return textsToTranslate;
+      return await Request.post("translate", textsToTranslate, {
+        params: {
+          profanityAction: "NoAction",
+          textType: "plain",
+          "api-version": "3.0",
+          to: "pt",
+        },
       })
-      .catch((error) => {
-        throw new Error(error);
-      });
-  } catch (error) {
-    return DebugLog(`[-] translate error:`, error.message);
+        .then(({ data }) => {
+          return data;
+        })
+        .catch((error) => {
+          throw new Error(error);
+        });
+    } catch ({message}) {
+      DebugLog(`[-] translate error:`, message)
+    }
   }
-}
-
-module.exports = { MicrosoftTranslate };
+} 

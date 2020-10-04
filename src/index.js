@@ -2,6 +2,8 @@ const path = require("path");
 
 const inputPath = path.resolve(__dirname, "..", "public", "data");
 const outputPath = path.resolve(__dirname, "..", "public", "dist");
-const core = require("./core");
+const {core} = require("./core");
 
-core(inputPath, outputPath);
+(async () => {
+  await core(inputPath, outputPath);
+})()
