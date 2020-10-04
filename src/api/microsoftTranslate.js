@@ -1,5 +1,6 @@
+require("dotenv").config();
 const Axios = require("axios").default;
-const DebugLog = require("./utils/inspect");
+const DebugLog = require("../utils/inspect");
 
 const Request = Axios.create({
   baseURL: "https://microsoft-translator-text.p.rapidapi.com/",
@@ -15,6 +16,7 @@ const Request = Axios.create({
 
 async function MicrosoftTranslate(textsToTranslate = [{ text: "" }]) {
   try {
+    if(!textsToTranslate.length) return textsToTranslate;
     return await Request.post("translate", textsToTranslate, {
       params: {
         profanityAction: "NoAction",

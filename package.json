@@ -12,8 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
-    "dotenv": "^8.2.0",
-    "subtitles-parser": "0.0.2",
-    "unirest": "^0.6.0"
+    "dotenv": "^8.2.0"
   }
 }
