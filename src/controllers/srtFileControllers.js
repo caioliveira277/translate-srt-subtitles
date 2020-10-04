@@ -1,4 +1,5 @@
 const fsPromises = require("fs").promises;
+const fs = require("fs");
 const parser = require("../parser");
 const path = require("path");
 
@@ -32,17 +33,22 @@ module.exports = {
   ParserJsonToSrt: async (arraySrtJsonConverted, outputPath, currentPathFile) => {
     const jsonConvertedToSrt = parser.toSrt(arraySrtJsonConverted);
     const { base } = currentPathFile;
+
+    const finalPath = path.join(outputPath, base);
+    if(!fs.existsSync(outputPath)){
+      await fsPromises.mkdir(path.basename(outputPath));
+    }
     return await fsPromises
-      .writeFile(`${outputPath}/${base}`, jsonConvertedToSrt, "utf8")
+      .writeFile(finalPath, jsonConvertedToSrt, "utf8")
       .then(() => {
         return {
           message: `[+] subtitles successfully translated: saved in ${outputPath}`,
           response: true
         }
       })
-      .catch(() => {
+      .catch((error) => {
         return {
-          message: `[-] error to save translated files`,
+          message: `[-] error to save translated files: ${error}`,
           response: false
         };
       });
