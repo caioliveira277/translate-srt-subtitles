@@ -1,12 +1,13 @@
 require("dotenv").config();
 const Axios = require("axios").default;
 const DebugLog = require("../utils/inspect");
+const { exit } = require("process");
 
 const Request = Axios.create({
   baseURL: "https://microsoft-translator-text.p.rapidapi.com/",
   headers: {
     "x-rapidapi-host": "microsoft-translator-text.p.rapidapi.com",
-    "x-rapidapi-key": process.env.TRANSLATE_MICROSOFT_KEY,
+    "x-rapidapi-key": "",
     "content-type": "application/json",
     accept: "application/json",
     useQueryString: true,
@@ -17,22 +18,35 @@ const Request = Axios.create({
 module.exports = {
   MicrosoftTranslate: async (textsToTranslate = [{ text: "" }]) => {
     try {
-      if(!textsToTranslate.length) return textsToTranslate;
-      return await Request.post("translate", textsToTranslate, {
-        params: {
-          profanityAction: "NoAction",
-          textType: "plain",
-          "api-version": "3.0",
-          to: "pt",
-        },
-      })
-        .then(({ data }) => {
-          return data;
+      if (!textsToTranslate.length) return textsToTranslate;
+      const translatedTexts = [];
+      const limit = 100;
+
+      const parts = Math.ceil(textsToTranslate.length / limit);
+      let prev = 0, current = 0;
+      for (let i = 0; i < parts; i++) {
+        current = (i + 1) * limit;
+
+        const texts = textsToTranslate.slice(prev, current)
+        await Request.post("translate", texts, {
+          params: {
+            profanityAction: "NoAction",
+            textType: "plain",
+            "api-version": "3.0",
+            to: "pt",
+          },
         })
-        .catch((error) => {
-          throw new Error(error);
-        });
-    } catch ({message}) {
+          .then(({ data }) => {
+            translatedTexts.push(...data);
+          })
+          .catch((error) => {
+            throw new Error(error);
+          }).finally(() => {
+            prev = current;
+          });
+      }
+      return translatedTexts
+    } catch ({ message }) {
       DebugLog(`[-] translate error:`, message)
     }
   }
