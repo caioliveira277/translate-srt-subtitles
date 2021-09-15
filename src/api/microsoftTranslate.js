@@ -1,18 +1,28 @@
 require("dotenv").config();
 const Axios = require("axios").default;
 const DebugLog = require("../utils/inspect");
-const { exit } = require("process");
+const fs = require('fs/promises');
+const path = require('path');
 
 const Request = Axios.create({
   baseURL: "https://microsoft-translator-text.p.rapidapi.com/",
   headers: {
     "x-rapidapi-host": "microsoft-translator-text.p.rapidapi.com",
-    "x-rapidapi-key": "",
     "content-type": "application/json",
     accept: "application/json",
     useQueryString: true,
   },
   responseType: "json",
+});
+Request.interceptors.request.use(function (config) {
+  const keyFilePath = path.resolve(__dirname, '..', '..')
+  fs.readFile()
+
+  config.headers["x-rapidapi-key"];
+  return config;
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error);
 });
 
 module.exports = {
