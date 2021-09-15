@@ -1,5 +1,3 @@
-const { debuglog } = require("util");
-
 const inspect = require("util").inspect;
 
 module.exports = function DebugLog(debugTitle = "", obj = null) {

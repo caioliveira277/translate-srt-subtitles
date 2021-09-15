@@ -47,7 +47,7 @@ module.exports = {
       }
       return translatedTexts
     } catch ({ message }) {
-      DebugLog(`[-] translate error:`, message)
+      DebugLog(`[-] erro ao traduzir:`, message)
     }
   }
-} 
+}

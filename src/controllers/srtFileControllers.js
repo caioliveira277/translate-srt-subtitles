@@ -42,13 +42,13 @@ module.exports = {
       .writeFile(finalPath, jsonConvertedToSrt, "utf8")
       .then(() => {
         return {
-          message: `✔ subtitles successfully translated: saved in ${outputPath}`,
+          message: `✔ legendas traduzidas com sucesso: salvas em ${outputPath}`,
           response: true
         }
       })
       .catch((error) => {
         return {
-          message: `[-] error to save translated files: ${error}`,
+          message: `[-] erro ao salvar os arquivos de legenda: ${error}`,
           response: false
         };
       });
